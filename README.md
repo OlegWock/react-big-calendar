@@ -10,6 +10,10 @@ An events calendar component built for React and made for modern browsers (read:
 
 Inspired by [Full Calendar](http://fullcalendar.io/).
 
+## Difference with original version
+
+* `onShowMore` now passes 4th argument `target` (the '+x more' button DOM node itself) 
+
 ## Use and Setup
 
 `yarn add react-big-calendar` or `npm install --save react-big-calendar`

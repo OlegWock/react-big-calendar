@@ -326,7 +326,7 @@ class MonthView extends React.Component {
       notify(onDrillDown, [date, getDrilldownView(date) || views.DAY])
     }
 
-    notify(onShowMore, [events, date, slot])
+    notify(onShowMore, [events, date, slot, target])
   }
 
   overlayDisplay = () => {
