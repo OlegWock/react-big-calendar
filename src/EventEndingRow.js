@@ -9,6 +9,9 @@ let isSegmentInSlot = (seg, slot) => seg.left <= slot && seg.right >= slot
 let eventsInSlot = (segments, slot) =>
   segments.filter((seg) => isSegmentInSlot(seg, slot)).length
 
+let getEventsFromSlot = (segments, slot) =>
+  segments.filter((seg) => isSegmentInSlot(seg, slot)).map((s) => s.event)
+
 class EventEndingRow extends React.Component {
   render() {
     let {
@@ -75,18 +78,33 @@ class EventEndingRow extends React.Component {
   }
 
   renderShowMore(segments, slot) {
-    let { localizer } = this.props
+    let { localizer, components, fullSegments } = this.props
     let count = eventsInSlot(segments, slot)
+    let events = getEventsFromSlot(fullSegments, slot)
+    let hiddenEvents = getEventsFromSlot(segments, slot)
+
+    const ShowMore = components.showMoreButton
+      ? components.showMoreButton
+      : () => {
+          return (
+            <button
+              type="button"
+              key={'sm_' + slot}
+              className={clsx('rbc-button-link', 'rbc-show-more')}
+              onClick={(e) => this.showMore(slot, e)}
+            >
+              {localizer.messages.showMore(count)}
+            </button>
+          )
+        }
 
     return count ? (
-      <button
-        type="button"
+      <ShowMore
         key={'sm_' + slot}
-        className={clsx('rbc-button-link', 'rbc-show-more')}
-        onClick={e => this.showMore(slot, e)}
-      >
-        {localizer.messages.showMore(count)}
-      </button>
+        events={events}
+        hiddenEvents={hiddenEvents}
+        localizer={localizer}
+      />
     ) : (
       false
     )
@@ -100,6 +118,7 @@ class EventEndingRow extends React.Component {
 }
 
 EventEndingRow.propTypes = {
+  fullSegments: PropTypes.array,
   segments: PropTypes.array,
   slots: PropTypes.number,
   onShowMore: PropTypes.func,

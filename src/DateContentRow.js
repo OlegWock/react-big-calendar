@@ -188,6 +188,7 @@ class DateContentRow extends React.Component {
               {!!extra.length && (
                 <EventEndingRow
                   segments={extra}
+                  fullSegments={[...levels.flat(2), ...extra]}
                   onShowMore={this.handleShowMore}
                   {...eventRowProps}
                 />

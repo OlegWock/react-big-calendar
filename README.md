@@ -12,7 +12,9 @@ Inspired by [Full Calendar](http://fullcalendar.io/).
 
 ## Difference with original version
 
-* `onShowMore` now passes 4th argument `target` (the '+x more' button DOM node itself) 
+- `onShowMore` now passes 4th argument `target` (the '+x more' button DOM node itself)
+
+- `showMoreButton` was added to `components` prop. Props for `showMoreButton`: `events` -- all events for that day, `hiddenEvents` -- events which did not fit into cell, `localizer`
 
 ## Use and Setup
 
